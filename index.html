@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Dashboard - Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('image/background1.webp'); /* Replace with your own background image URL */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background to improve text visibility */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background-color: #fff;
+        }
+
+        .button {
+            background-color: #333;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main container with centered form -->
+    <div class="container">
+        <h1>Sign Up to Health Dashboard</h1>
+        <p>Enter your details to get started with tracking your health.</p>
+
+        <!-- Sign-Up Form -->
+        <form id="signUpForm">
+            <!-- Email Field -->
+            <input type="email" id="email" class="input-field" placeholder="Enter your email" required>
+
+            <!-- Password Field -->
+            <input type="password" id="password" class="input-field" placeholder="Enter your password" required>
+
+            <!-- Sign-Up Button -->
+            <button type="submit" class="button">Sign Up & Check Health</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to handle form submission
+        document.getElementById('signUpForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting in the traditional way
+
+            // Get user input values
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Store email and password in sessionStorage (optional, for example purposes)
+            sessionStorage.setItem('email', email);
+            sessionStorage.setItem('password', password);
+
+            // Redirect to Health Monitor page after successful sign-up
+            window.location.href = 'health.html'; // Redirect to the next page (Health Monitor)
+        });
+    </script>
+
+</body>
+</html>

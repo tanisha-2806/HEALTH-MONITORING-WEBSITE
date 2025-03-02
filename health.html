@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Monitor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('image/background2.webp');
+            background-repeat: no-repeat;
+            background-size: 2000px;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #f9a826;
+        }
+
+        .health-option button {
+            background: #f9a826;
+            color: black;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.3s;
+        }
+
+        .health-option button:hover {
+            background: #ffbb33;
+            transform: scale(1.1);
+        }
+
+        .form-container {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .input-field {
+            width: 80%;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 2px solid #f9a826;
+            background: white;
+            color: black;
+            font-size: 16px;
+        }
+
+        .submit-btn {
+            background-color: #f9a826;
+            color: black;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #ffbb33;
+        }
+         /* Contact section */
+         .contact-section {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            color: white;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            animation: fadeIn 2s ease-in-out;
+            width: 200px;
+        }
+
+        .contact-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #f9a826;
+        }
+
+        .contact-section p {
+            margin-bottom: 5px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Health Monitoring</h1>
+    <p>Select a health parameter to monitor:</p>
+
+    <div class="health-option">
+        <button onclick="toggleForm('bloodPressureForm')">Blood Pressure</button>
+        <button onclick="toggleForm('pulseForm')">Pulse</button>
+        <button onclick="toggleForm('tempForm')">Temperature</button>
+    </div>
+
+    <div id="bloodPressureForm" class="form-container">
+        <h2>Enter your Blood Pressure</h2>
+        <input type="number" id="bpSystolic" class="input-field" placeholder="Systolic (mmHg)" required>
+        <input type="number" id="bpDiastolic" class="input-field" placeholder="Diastolic (mmHg)" required>
+        <button class="submit-btn" onclick="submitData('Blood Pressure')">Submit</button>
+    </div>
+
+    <div id="pulseForm" class="form-container">
+        <h2>Enter your Pulse</h2>
+        <input type="number" id="pulse" class="input-field" placeholder="Pulse Rate (bpm)" required>
+        <button class="submit-btn" onclick="submitData('Pulse')">Submit</button>
+    </div>
+
+    <div id="tempForm" class="form-container">
+        <h2>Enter your Temperature</h2>
+        <input type="number" id="temp" class="input-field" placeholder="Temperature (°C)" required>
+        <button class="submit-btn" onclick="submitData('Temperature')">Submit</button>
+    </div>
+    <!-- Contact Information Section -->
+    <div class="contact-section">
+        <h3>Contact Information</h3>
+        <p><strong>Email:</strong> healthcare@gmail.com</p>
+        <p><strong>Phone:</strong> +91 120 xxxx 789</p>
+    </div>
+
+
+
+    <script>
+        function toggleForm(formId) {
+            document.getElementById('bloodPressureForm').style.display = 'none';
+            document.getElementById('pulseForm').style.display = 'none';
+            document.getElementById('tempForm').style.display = 'none';
+            document.getElementById(formId).style.display = 'block';
+        }
+
+        function submitData(param) {
+            let resultText = "";
+            
+            if (param === "Blood Pressure") {
+                let systolic = document.getElementById("bpSystolic").value;
+                let diastolic = document.getElementById("bpDiastolic").value;
+                resultText = (systolic >= 90 && systolic <= 120 && diastolic >= 60 && diastolic <= 80) ?
+                    `✅ Normal Blood Pressure (${systolic}/${diastolic} mmHg)` :
+                    `⚠️ Abnormal Blood Pressure (${systolic}/${diastolic} mmHg). Consult a doctor.`;
+                localStorage.setItem("bpResult", resultText);
+            } else if (param === "Pulse") {
+                let pulse = document.getElementById("pulse").value;
+                resultText = (pulse >= 60 && pulse <= 100) ?
+                    `✅ Normal Pulse (${pulse} bpm)` :
+                    `⚠️ Abnormal Pulse (${pulse} bpm). Consult a doctor.`;
+                localStorage.setItem("pulseResult", resultText);
+            } else if (param === "Temperature") {
+                let temp = document.getElementById("temp").value;
+                resultText = (temp >= 36.1 && temp <= 37.2) ?
+                    `✅ Normal Temperature (${temp} °C)` :
+                    `⚠️ Abnormal Temperature (${temp} °C). Consult a doctor.`;
+                localStorage.setItem("tempResult", resultText);
+            }
+            
+            window.location.href = "summary.html";
+        }
+    </script>
+    
+
+</body>
+</html>
